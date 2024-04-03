@@ -15,7 +15,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	%Label.text = str("balls: ", balls.size())
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -34,10 +34,24 @@ func _unhandled_input(event):
 func reset():
 	player.show()
 	player.position = init_position
-	add_ball(player.position + Vector2(0, -30))
-	
-func add_ball(pos: Vector2):
-	var ball = ball_scene.instantiate()
-	ball.position = pos
-	add_child(ball)
+	var ball = add_ball(player.position + Vector2(0, -30), Vector2.UP)
 	balls.append(ball as Ball)
+	
+func add_ball(pos: Vector2, dir: Vector2):
+	var ball: Ball = ball_scene.instantiate()
+	ball.position = pos
+	ball.direction = dir
+	add_child(ball)
+	return ball
+
+func _on_m_3_pressed():
+	var new_balls : Array[Ball]
+	for ball in balls:
+		var pos = ball.position
+		for i in range(3):
+			print(1)
+			var new_ball = add_ball(ball.position, Vector2(randf_range(-1, 1), randf_range(-1,1)).normalized())
+			new_balls.append(new_ball)
+	for ball in new_balls:
+		ball.run()
+		balls.append(ball as Ball)

@@ -86,6 +86,11 @@ layout_mode = 2
 size_flags_vertical = 4
 text = "+3"
 
+[node name="Label" type="Label" parent="UI/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "balls: 1"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -219,3 +224,5 @@ layer_0/tile_data = PackedInt32Array(851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 8
 position = Vector2(360, 1200)
 collision_mask = 13
 MOTION_SPEED = 60
+
+[connection signal="pressed" from="UI/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/HBoxContainer/m3" to="." method="_on_m_3_pressed"]

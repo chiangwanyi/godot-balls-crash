@@ -16,6 +16,7 @@ func _process(delta):
 	_speed += delta * 2
 	position += _speed * delta * direction
 	
+	
 func set_direction(dir: Vector2):
 	direction = dir.normalized()
 
@@ -30,14 +31,20 @@ func _on_body_entered(body):
 		elif name == "LeftWall" or name == "RightWall":
 			direction = direction.reflect(Vector2(0, 1))
 	if body is CharacterBody2D:
-		direction = Vector2(position.x - body.position.x, position.y - body.position.y).normalized()
+		var new_direction: Vector2 = (position - body.position).normalized()
+		if new_direction.x < 0:
+			direction = new_direction.rotated(deg_to_rad(40))
+		elif new_direction.x > 0:
+			direction = new_direction.rotated(deg_to_rad(-40))
+		else:
+			direction = new_direction
 		run()
 
 func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body is TileMap:
 		var tilemap = body as TileMap
 		var coords = tilemap.get_coords_for_body_rid(body_rid)
-		print("ball:",position,"\tbody:", tilemap.map_to_local(coords))
+		#print("ball:",position,"\tbody:", tilemap.map_to_local(coords))
 		# 球心到碰撞块中心的向量
 		var coll_direction = (tilemap.map_to_local(coords) - position).normalized()
 		var angle = coll_direction.angle()
@@ -78,8 +85,6 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 			else:
 				new_direction = direction.reflect(Vector2(0, -1))
 			if new_direction.x > 0:
-				direction = new_direction				
+				direction = new_direction
 			print("ball 碰撞右边")
 		tilemap.erase_cell(0, coords)
-		if _speed > 50:
-			_speed /= 2
