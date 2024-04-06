@@ -7,6 +7,8 @@ class_name Ball extends Area2D
 var stop : bool = true
 var _speed = DEFAULT_SPEED
 
+var bs : Signal
+
 func _ready():
 	pass # Replace with function body.
 
@@ -16,6 +18,8 @@ func _process(delta):
 	_speed += delta * 2
 	position += _speed * delta * direction
 	
+func set_ball_coll(s: Signal):
+	bs = s
 	
 func set_direction(dir: Vector2):
 	direction = dir.normalized()
@@ -88,3 +92,4 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 				direction = new_direction
 			print("ball 碰撞右边")
 		tilemap.erase_cell(0, coords)
+		bs.emit()

@@ -8,6 +8,8 @@ var balls : Array[Ball]
 
 var init_position = Vector2(360, 1200)
 
+signal ball_colled
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print(Vector2(0.1, 1).normalized().reflect(Vector2(-1, 0)))
@@ -41,6 +43,7 @@ func add_ball(pos: Vector2, dir: Vector2):
 	var ball: Ball = ball_scene.instantiate()
 	ball.position = pos
 	ball.direction = dir
+	ball.set_ball_coll(ball_colled)
 	add_child(ball)
 	return ball
 
@@ -55,3 +58,6 @@ func _on_m_3_pressed():
 	for ball in new_balls:
 		ball.run()
 		balls.append(ball as Ball)
+
+func _on_ball_colled():
+	(%AudioStreamPlayer as AudioStreamPlayer).play()
