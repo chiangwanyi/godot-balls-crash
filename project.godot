@@ -56,6 +56,7 @@ move_right={
 2d_physics/layer_4="coins"
 2d_physics/layer_5="balls"
 2d_physics/layer_6="air_walls"
+2d_physics/layer_7="power-ups"
 
 [rendering]
 

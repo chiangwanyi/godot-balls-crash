@@ -29,7 +29,7 @@ static func subscription_exists(topic: String, receiver: Node):
 	return exists
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 class EventListener:
