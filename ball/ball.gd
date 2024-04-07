@@ -93,3 +93,7 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 			print("ball 碰撞右边")
 		tilemap.erase_cell(0, coords)
 		bs.emit()
+
+
+func _on_visible_on_screen_enabler_2d_screen_exited():
+	pass # Replace with function body.

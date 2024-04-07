@@ -15,6 +15,10 @@ run/main_scene="res://main/level.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EventManager="*res://tools/managers/event_manager.gd"
+
 [display]
 
 window/size/viewport_width=720
@@ -51,6 +55,7 @@ move_right={
 2d_physics/layer_3="enemies"
 2d_physics/layer_4="coins"
 2d_physics/layer_5="balls"
+2d_physics/layer_6="air_walls"
 
 [rendering]
 
