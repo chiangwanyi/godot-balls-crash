@@ -25,11 +25,9 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			var coords = tilemap.local_to_map(get_global_mouse_position())
-			print("at: ", coords)
-			tilemap.erase_cell(0, coords)
+			#tilemap.erase_cell(0, coords)
 			for ball in balls:
-				ball.set_direction(get_global_mouse_position() - ball.position)
-				ball.run()
+				ball.force_stack.append((get_global_mouse_position() - ball.position).normalized())
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			for ball in balls:
 				ball.position = get_global_mouse_position()
@@ -37,13 +35,12 @@ func _unhandled_input(event):
 func reset():
 	player.show()
 	player.position = init_position
-	var ball = add_ball(player.position + Vector2(0, -30), Vector2.UP)
+	var ball = add_ball(player.position + Vector2(0, -30), Vector2.ZERO)
 	balls.append(ball as Ball)
 
 func add_ball(pos: Vector2, dir: Vector2):
 	var ball := ball_res.instantiate() as Ball
 	ball.position = pos
-	#ball.direction = dir
 	ball.apply_central_force(dir.normalized())
 	ball.hit_brick.connect(_on_ball_hit_brick)
 	ball.ball_out_of_screen.connect(_on_ball_out_of_screen)
@@ -60,7 +57,7 @@ func add_triple_split(pos: Vector2) -> void :
 	
 func _on_ball_hit_brick(brick_pos: Vector2):
 	(%AudioStreamPlayer as AudioStreamPlayer).play()
-	if randi() % 50 == 1 and balls.size() < 50:
+	if randi() % 10 == 1 and balls.size() < 100:
 		add_triple_split(brick_pos)
 	
 func _on_ball_out_of_screen(target_ball : Ball):
@@ -75,5 +72,4 @@ func _on_triple_split_picked():
 			var new_ball = add_ball(ball.position, Vector2(randf_range(-1, 1), randf_range(-1,1)).normalized())
 			new_balls.append(new_ball)
 	for ball in new_balls:
-		ball.run()
-		balls.append(ball as Ball)	
+		balls.append(ball as Ball)
