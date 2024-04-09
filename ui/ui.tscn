@@ -1,0 +1,136 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgsqbp0qtsy4y"]
+
+[ext_resource type="Texture2D" uid="uid://cfy7nwoo2sjl2" path="res://assets/pause.svg" id="1_rlme8"]
+[ext_resource type="Texture2D" uid="uid://cx51ymu2uwi3a" path="res://assets/time.svg" id="2_kltd3"]
+[ext_resource type="Texture2D" uid="uid://mv6nmjf3mn71" path="res://assets/star.svg" id="3_756ju"]
+[ext_resource type="Texture2D" uid="uid://brdm8mqs07iyv" path="res://assets/heart.svg" id="4_i1xfo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60063"]
+bg_color = Color(0.0980392, 0.141176, 0.25098, 1)
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.08
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_60063")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("1_rlme8")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "balls: 1"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Level 11"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
+value = 16.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_kltd3")
+texture_progress = ExtResource("2_kltd3")
+tint_under = Color(0.321569, 0.364706, 0.486275, 1)
+tint_progress = Color(0.984314, 0.811765, 0.054902, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 0.839216, 0.239216, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_756ju")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 0.839216, 0.239216, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_756ju")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0.333333, 0.380392, 0.490196, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_756ju")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/HBoxContainer2"]
+modulate = Color(0.992157, 0.380392, 0.364706, 1)
+layout_mode = 2
+texture = ExtResource("4_i1xfo")
+stretch_mode = 3
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/HBoxContainer2"]
+modulate = Color(0.992157, 0.380392, 0.364706, 1)
+layout_mode = 2
+texture = ExtResource("4_i1xfo")
+stretch_mode = 3
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/HBoxContainer2"]
+modulate = Color(0.992157, 0.380392, 0.364706, 1)
+layout_mode = 2
+texture = ExtResource("4_i1xfo")
+stretch_mode = 3
+
+[node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3

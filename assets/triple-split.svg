@@ -1,0 +1,8 @@
+<svg fill="#eea73d" width="16px" height="16px" viewBox="0 0 50 50" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" overflow="inherit">
+  <g transform="rotate(45 25 25)">
+  <circle cx="25" cy="25" r="24"/>
+  <circle cx="15" cy="15" r="6" fill="#fff"/>
+  <circle cx="38.66" cy="21.34" r="6" fill="#fff"/>
+  <circle cx="21.34" cy="38.66" r="6" fill="#fff"/>
+    </g>
+</svg>

@@ -1,5 +1,5 @@
 class_name Ball
-extends Area2D
+extends RigidBody2D
 
 @export var DEFAULT_SPEED = 200
 @export var direction = Vector2.UP
@@ -13,11 +13,10 @@ signal ball_out_of_screen(ball: Ball)
 func _ready():
 	pass # Replace with function body.
 
-func _process(delta):
-	if stop:
-		return
-	_speed += delta * 2
-	position += _speed * delta * direction
+func _integrate_forces(state):
+	var lv = state.linear_velocity
+	if lv.length() != DEFAULT_SPEED:
+		state.linear_velocity = lv.normalized() * DEFAULT_SPEED
 	
 func set_direction(dir: Vector2):
 	direction = dir.normalized()
@@ -26,6 +25,7 @@ func run():
 	stop = false
 
 func _on_body_entered(body):
+	return
 	if body is StaticBody2D:
 		var body_name = (body as StaticBody2D).name
 		if body_name == "Ceiling" or body_name == "Floor":
@@ -46,52 +46,12 @@ func _on_body_shape_entered(body_rid, body, _body_shape_index, _local_shape_inde
 	if body is TileMap:
 		var tilemap = body as TileMap
 		var coords := tilemap.get_coords_for_body_rid(body_rid)
+		# 碰撞到的砖块中心点位置
 		var brick_pos := tilemap.map_to_local(coords)
-		#print("ball:",position,"\tbody:", tilemap.map_to_local(coords))
-		# 球心到碰撞块中心的向量
-		var coll_direction = (brick_pos - position).normalized()
-		var angle = coll_direction.angle()
 		
-		var new_direction
-		# left
-		if angle >= -PI / 4 and angle < PI / 4:
-			#print("ball 碰撞左边")
-			if angle > 0:
-				new_direction = direction.reflect(Vector2(0, 1))
-			else:
-				new_direction = direction.reflect(Vector2(0, -1))
-			if new_direction.x < 0:
-				direction = new_direction
-		# top
-		elif angle >= PI / 4 and angle < PI / 4 * 3:
-			if angle > PI / 2:
-				new_direction = direction.reflect(Vector2(-1, 0))
-			else:
-				new_direction = direction.reflect(Vector2(1, 0))
-			if new_direction.y < 0:
-				direction = new_direction
-			#print("ball 碰撞上边")
-		# bottom
-		elif angle < -PI / 4 and angle > -PI / 4 * 3:
-			if angle < -PI /2:
-				new_direction = direction.reflect(Vector2(-1, 0))
-			else:
-				new_direction = direction.reflect(Vector2(1, 0))
-			# 如果小球同时碰到两个砖块，直接反射会反转方向向上
-			if new_direction.y > 0:
-				direction = new_direction
-			#print("ball 碰撞下边")
-		# right
-		else:
-			if angle > 0:
-				new_direction = direction.reflect(Vector2(0, 1))
-			else:
-				new_direction = direction.reflect(Vector2(0, -1))
-			if new_direction.x > 0:
-				direction = new_direction
-			#print("ball 碰撞右边")
 		tilemap.erase_cell(0, coords)
 		hit_brick.emit(brick_pos)
+		#stop = false
 
 
 func _on_visible_on_screen_enabler_2d_screen_exited():

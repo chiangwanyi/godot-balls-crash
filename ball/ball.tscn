@@ -1,26 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://gje8mk7gv1hr"]
+[gd_scene load_steps=5 format=3 uid="uid://gje8mk7gv1hr"]
 
 [ext_resource type="Texture2D" uid="uid://plsbjruv2ui4" path="res://assets/ball.svg" id="1_2ofob"]
 [ext_resource type="Script" path="res://ball/ball.gd" id="1_yxtlb"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_07unk"]
-radius = 6.0
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lfp87"]
+friction = 0.0
+bounce = 1.0
 
-[node name="Ball" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_07unk"]
+radius = 4.0
+
+[node name="Ball" type="RigidBody2D"]
 collision_layer = 16
 collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_lfp87")
+gravity_scale = 0.0
+continuous_cd = 1
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_yxtlb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
+texture_filter = 1
 texture = ExtResource("1_2ofob")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_07unk")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
-position = Vector2(-1.19209e-07, -1.19209e-07)
-scale = Vector2(0.7, 0.7)
+position = Vector2(-3.57628e-07, -3.57628e-07)
+scale = Vector2(0.4, 0.4)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

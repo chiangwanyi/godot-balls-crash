@@ -9,7 +9,7 @@ var triple_split_res := preload("res://power-ups/triple_split.tscn")
 
 var balls : Array[Ball]
 
-var init_position = Vector2(360, 1200)
+var init_position = Vector2(200, 760)
 
 signal ball_colled
 
@@ -19,7 +19,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	%Label.text = str("balls: ", balls.size())
+	pass
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -33,7 +33,6 @@ func _unhandled_input(event):
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			for ball in balls:
 				ball.position = get_global_mouse_position()
-	
 
 func reset():
 	player.show()
@@ -52,21 +51,12 @@ func add_ball(pos: Vector2, dir: Vector2):
 	return ball
 	
 func add_triple_split(pos: Vector2) -> void :
-	var item := triple_split_res.instantiate() as Area2D
+	var item := triple_split_res.instantiate() as TripleSplitPower
 	item.position = pos
+	item.picked.connect(_on_triple_split_picked)
+	
 	call_deferred("add_child", item)
 	
-func _on_m_3_pressed():
-	var new_balls : Array[Ball] = []
-	for ball in balls:
-		for i in range(3):
-			print(1)
-			var new_ball = add_ball(ball.position, Vector2(randf_range(-1, 1), randf_range(-1,1)).normalized())
-			new_balls.append(new_ball)
-	for ball in new_balls:
-		ball.run()
-		balls.append(ball as Ball)
-
 func _on_ball_hit_brick(brick_pos: Vector2):
 	(%AudioStreamPlayer as AudioStreamPlayer).play()
 	if randi() % 20 == 1:
@@ -76,3 +66,14 @@ func _on_ball_out_of_screen(target_ball : Ball):
 	if target_ball in balls:
 		balls.erase(target_ball)
 	target_ball.queue_free()
+
+func _on_triple_split_picked():
+	var new_balls : Array[Ball] = []
+	for ball in balls:
+		for i in range(3):
+			print(1)
+			var new_ball = add_ball(ball.position, Vector2(randf_range(-1, 1), randf_range(-1,1)).normalized())
+			new_balls.append(new_ball)
+	for ball in new_balls:
+		ball.run()
+		balls.append(ball as Ball)	

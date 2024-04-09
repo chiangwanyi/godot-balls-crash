@@ -1,4 +1,4 @@
-extends Area2D
+class_name TripleSplitPower extends Area2D
 
 @export var drop_speed := 20
 
