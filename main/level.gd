@@ -43,11 +43,12 @@ func reset():
 func add_ball(pos: Vector2, dir: Vector2):
 	var ball := ball_res.instantiate() as Ball
 	ball.position = pos
-	ball.direction = dir
+	#ball.direction = dir
+	ball.apply_central_force(dir.normalized())
 	ball.hit_brick.connect(_on_ball_hit_brick)
 	ball.ball_out_of_screen.connect(_on_ball_out_of_screen)
-	add_child(ball)
 	
+	call_deferred("add_child", ball)
 	return ball
 	
 func add_triple_split(pos: Vector2) -> void :
@@ -59,7 +60,7 @@ func add_triple_split(pos: Vector2) -> void :
 	
 func _on_ball_hit_brick(brick_pos: Vector2):
 	(%AudioStreamPlayer as AudioStreamPlayer).play()
-	if randi() % 20 == 1:
+	if randi() % 50 == 1 and balls.size() < 50:
 		add_triple_split(brick_pos)
 	
 func _on_ball_out_of_screen(target_ball : Ball):
@@ -71,7 +72,6 @@ func _on_triple_split_picked():
 	var new_balls : Array[Ball] = []
 	for ball in balls:
 		for i in range(3):
-			print(1)
 			var new_ball = add_ball(ball.position, Vector2(randf_range(-1, 1), randf_range(-1,1)).normalized())
 			new_balls.append(new_ball)
 	for ball in new_balls:

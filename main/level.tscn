@@ -63,6 +63,7 @@ collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_v3q2n")
+disabled = true
 
 [node name="AirWallTop" type="StaticBody2D" parent="."]
 position = Vector2(200, 700)
@@ -90,7 +91,7 @@ layer_0/tile_data = PackedInt32Array(524289, 0, 0, 589825, 0, 0, 655362, 0, 0, 7
 
 [node name="Player" parent="." instance=ExtResource("5_tn1k5")]
 position = Vector2(200, 760)
-collision_mask = 45
+collision_mask = 109
 MOTION_SPEED = 60
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
