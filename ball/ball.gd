@@ -21,24 +21,11 @@ func _integrate_forces(state):
 			state.linear_velocity = lv.normalized() * DEFAULT_SPEED
 	else:
 		state.linear_velocity = force_stack.pop_front().normalized() * DEFAULT_SPEED
-	
-#func _on_body_entered(body):
-	#return
-	#if body is StaticBody2D:
-		#var body_name = (body as StaticBody2D).name
-		#if body_name == "Ceiling" or body_name == "Floor":
-			#direction = direction.reflect(Vector2(1, 0))
-		#elif body_name == "LeftWall" or body_name == "RightWall":
-			#direction = direction.reflect(Vector2(0, 1))
-	#if body is CharacterBody2D:
-		#var new_direction: Vector2 = (position - body.position).normalized()
-		#if new_direction.x < 0:
-			#direction = new_direction.rotated(deg_to_rad(40))
-		#elif new_direction.x > 0:
-			#direction = new_direction.rotated(deg_to_rad(-40))
-		#else:
-			#direction = new_direction
-		#run()
+		
+func _physics_process(delta: float) -> void:
+	if position.y > 800:
+		ball_out_of_screen.emit(self)
+		queue_free()
 
 func _on_body_shape_entered(body_rid, body, _body_shape_index, _local_shape_index):
 	if body is TileMap:
@@ -49,8 +36,11 @@ func _on_body_shape_entered(body_rid, body, _body_shape_index, _local_shape_inde
 		
 		tilemap.erase_cell(0, coords)
 		hit_brick.emit(brick_pos)
-		#stop = false
+	elif body is CharacterBody2D:
+		force_stack.append(position - body.position)
 
-
+# 当游戏中的ball过多时，VisibleOnScreenEnable不一定生效
 func _on_visible_on_screen_enabler_2d_screen_exited():
-	ball_out_of_screen.emit(self)
+	pass
+	#ball_out_of_screen.emit(self)
+	#queue_free()

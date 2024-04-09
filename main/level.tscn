@@ -35,6 +35,7 @@ offset_bottom = 800.0
 color = Color(0.0745098, 0.105882, 0.184314, 1)
 
 [node name="UI" parent="." instance=ExtResource("2_a6s4b")]
+unique_name_in_owner = true
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 collision_mask = 18

@@ -19,7 +19,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	%UI.set_ball_count(balls.size())
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -57,13 +57,12 @@ func add_triple_split(pos: Vector2) -> void :
 	
 func _on_ball_hit_brick(brick_pos: Vector2):
 	(%AudioStreamPlayer as AudioStreamPlayer).play()
-	if randi() % 10 == 1 and balls.size() < 100:
+	if randi() % 25 == 1 and balls.size() < 100:
 		add_triple_split(brick_pos)
 	
 func _on_ball_out_of_screen(target_ball : Ball):
-	if target_ball in balls:
-		balls.erase(target_ball)
-	target_ball.queue_free()
+	balls.erase(target_ball)
+	
 
 func _on_triple_split_picked():
 	var new_balls : Array[Ball] = []
